@@ -1,0 +1,36 @@
+{
+	"name": "Пропуск 1298",
+	"short_name": "Пропуск 1298",
+	"description": "Система пропусков Школа 1298",
+	"start_url": "/app/home",
+
+	"display": "standalone",
+	"background_color": "#ffffff",
+	"theme_color": "#ffffff",
+	"icons": [
+		{
+			"src": "icon-192x192.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		},
+		{
+			"src": "icon-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	],
+	"screenshots": [
+		{
+			"src": "screen-wide.png",
+			"sizes": "1280x720",
+			"type": "image/png",
+			"form_factor": "wide"
+		},
+		{
+			"src": "screen-mobile.png",
+			"sizes": "426x858",
+			"type": "image/png",
+			"form_factor": "narrow"
+		}
+	]
+}
