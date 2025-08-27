@@ -2,11 +2,6 @@
 const CACHE_NAME = 'passout-pwa-v1.0.0';
 const urlsToCache = [
   '/',
-  '/app',
-  '/static/js/bundle.js',
-  '/static/css/main.css',
-  '/assets/index.js',
-  '/manifest.json',
 
 ];
 
