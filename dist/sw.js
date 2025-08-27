@@ -7,7 +7,7 @@ const urlsToCache = [
   '/static/css/main.css',
   '/assets/index.js',
   '/manifest.json',
-  '/favicon.ico'
+
 ];
 
 // Установка сервис воркера
