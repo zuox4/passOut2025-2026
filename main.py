@@ -55,3 +55,15 @@ async def serve_react_app(catchall: str):
 @app.get("/")
 async def root_redirect():
     return RedirectResponse(url='/app')
+
+@app.get("/sw.js")
+async def serve_service_worker():
+    return FileResponse("static/sw.js", media_type="application/javascript")
+
+@app.get("/register-sw.js")
+async def serve_register_sw():
+    return FileResponse("static/register-sw.js", media_type="application/javascript")
+
+@app.get("/manifest.json")
+async def serve_manifest():
+    return FileResponse("static/manifest.json", media_type="application/json")

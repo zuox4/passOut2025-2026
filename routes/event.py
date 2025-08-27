@@ -96,7 +96,7 @@ def update_event(id: int, event_data: EventEdit, db: Session = Depends(get_db), 
 
 
 # Роутер для создания события
-@router.post("/")
+@router.post("/create")
 def create_event(event_data: EventCreate, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
     print(event_data)
     name = user.name
