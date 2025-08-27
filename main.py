@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import FileResponse, RedirectResponse
 from starlette.staticfiles import StaticFiles
-from fastapi.middleware.gzip import GZipMiddleware
 import os
 
 from routes.auth import router as auth
@@ -14,22 +13,8 @@ from database import engine, get_db
 from database import Base
 
 app = FastAPI()
+Base.metadata.create_all(bind=engine)
 
-# Создаем под-приложение для API с префиксом /api
-api_app = FastAPI(title="API", version="1.0.0")
-
-# Подключаем все роутеры к api_app
-api_app.include_router(auth, prefix="/auth", tags=["auth"])
-api_app.include_router(user, prefix="/user", tags=["user"])
-api_app.include_router(event, prefix="/event", tags=["event"])
-api_app.include_router(my_classes, prefix="/my-classes", tags=["my_classes"])
-api_app.include_router(passes, prefix="/passes", tags=["passes"])
-
-# Монтируем API приложение под префиксом /api
-app.mount("/api", api_app)
-
-# Middleware
-app.add_middleware(GZipMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -38,19 +23,23 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Создание таблиц
-Base.metadata.create_all(bind=engine)
+# ✅ ПРАВИЛЬНОЕ ПОДКЛЮЧЕНИЕ РОУТЕРОВ С ПРЕФИКСОМ /api
+app.include_router(auth, prefix="/api/auth")
+app.include_router(user, prefix="/api/user")
+app.include_router(event, prefix="/api/event")
+app.include_router(my_classes, prefix="/api/my-classes")
+app.include_router(passes, prefix="/api/passes")
 
-# Статические файлы
-app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
-app.mount("/static", StaticFiles(directory="dist/static"), name="static")
-
-# Health check endpoint
-@api_app.get("/health")
+# ✅ Health check endpoint
+@app.get("/api/health")
 async def health_check():
     return {"status": "healthy", "message": "API is working"}
 
-# Обслуживание статических файлов из dist
+# Монтируем статические файлы
+app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
+app.mount("/static", StaticFiles(directory="dist/static"), name="static")
+
+# Обслуживание статических файлов
 @app.get("/{filename:path}")
 async def serve_root_files(filename: str):
     file_path = os.path.join("dist", filename)
