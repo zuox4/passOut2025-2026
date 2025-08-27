@@ -19,16 +19,16 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],  # ← Явно укажите методы
     allow_headers=["*"],
 )
 
 # ✅ ПРАВИЛЬНОЕ ПОДКЛЮЧЕНИЕ РОУТЕРОВ С ПРЕФИКСОМ /api
-app.include_router(auth, prefix="/api/auth")
-app.include_router(user, prefix="/api/user")
-app.include_router(event, prefix="/api/event")
-app.include_router(my_classes, prefix="/api/my-classes")
-app.include_router(passes, prefix="/api/passes")
+app.include_router(auth)
+app.include_router(user)
+app.include_router(event)
+app.include_router(my_classes)
+app.include_router(passes)
 
 # ✅ Health check endpoint
 @app.get("/api/health")
