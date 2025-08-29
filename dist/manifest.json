@@ -3,14 +3,14 @@
   "short_name": "Пропуск на выход",
   "screenshots": [
     {
-      "src": "/screenshots/screen1.png",
+      "src": "/screenshots/screen-1280x720.png",
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
       "label": "Главный экран приложения на desktop"
     },
     {
-      "src": "/screenshots/screen1.png",
+      "src": "/screenshots/screen-750x1334.png",
       "sizes": "750x1334",
       "type": "image/png",
       "form_factor": "narrow",
